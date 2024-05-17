@@ -4,6 +4,14 @@ const BookDTO = require("../dto/book.dto");
 const CreateBooking = async (req, res) => {
   try {
     const { ISBNno, Category, Title, Authour } = req.body;
+
+     // Check if the ISBN No already exists
+     const existingBooking = await Book.findOne({ where: { ISBNno } });
+     if (existingBooking) {
+       return res
+         .status(400)
+         .json({ error: "Book with this ISBN already exists" });
+     }
     const booking = await Book.create({ ISBNno, Category, Title, Authour });
     res.status(201).json(booking);
   } catch (error) {
