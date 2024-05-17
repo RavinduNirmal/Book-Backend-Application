@@ -4,6 +4,12 @@ const UserDTO = require("../dto/user.dto");
 const CreateUser = async (req, res) => {
   try {
     const { firstName, lastName, email, contactNo } = req.body;
+
+    // Check if the email already exists
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: 'User with this email already exists' });
+    }
     const user = await User.create({ firstName, lastName, email, contactNo });
     res.status(201).json(user);
   } catch (error) {
