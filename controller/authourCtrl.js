@@ -27,4 +27,26 @@ const CreateAuthour = async (req, res) => {
     }
   };
   
-  module.exports = {CreateAuthour,getAllAuthors}
+  const updateAuthor = async (req, res) => {
+    let authorId = req.params.id;
+    const { firstName, lastName, email, contactNo } = req.body; 
+  
+    try {
+      const author = await Author.findOne({ where: { id: authorId } });
+      if (!author) {
+        return res.status(404).json({ message: "Author not found" });
+      }
+  
+      author.firstName = firstName || author.firstName;
+      author.lastName = lastName || author.lastName;
+      author.email = email || author.email;
+      author.contactNo = contactNo || author.contactNo;   
+  
+      await author.save();
+      res.json(author);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ status: "Error", message: error.message });
+    }
+  };
+  module.exports = {CreateAuthour,getAllAuthors,updateAuthor}
