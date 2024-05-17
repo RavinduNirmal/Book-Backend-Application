@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('./sequelize');  
-const Author = require('../model/author.model');
-const Category = require('../model/author.model');
+const Author = require('../model/author.model.js');
 
 const Book = sequelize.define('Book', {
   ISBNno: {
@@ -29,17 +28,12 @@ const Book = sequelize.define('Book', {
         notNull: { msg: "Authour is required" },
       },
   },
-
 });
 
-
-// //one-to-many relationship between Author and Book
-// Author.hasMany(Book);
 // Book.belongsTo(Author);
 
-// // one-to-many relationship between Category and Book
-// Category.hasMany(Book);
-// Book.belongsTo(Category);
+// console.log('Book model:', Book);
+// console.log('Author model in Book:', Author);
+// console.log('Book associations:', Book.associations);
 
 module.exports = Book;
-

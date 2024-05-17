@@ -1,20 +1,23 @@
-const cron = require('node-cron');
-const nodemailer = require('nodemailer');
+const winston = require('winston');
 const Book = require('../model/book.model'); 
 const Author = require('../model/author.model'); 
-const BookLike = require('../model//user_book.model'); 
+const BookLike = require('../model/user_book.model'); 
 
-// Configure your email transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-//   auth: {
-//     user: 'ravindu.nirmall099@gmail.com',
-//     pass: 'your-email-password',
-//   },
+// Configure winston logger
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.printf(({ timestamp, level, message }) => `${timestamp} [${level}]: ${message}`)
+  ),
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'likeCount.log' }),
+  ],
 });
 
-// Function to fetch like count for each author and send email
-const sendAuthorLikeReport = async () => {
+// Function to fetch like count for each author and log the information
+const logAuthorLikeReport = async () => {
   try {
     // Fetch like count for each author
     const authors = await Author.findAll({
@@ -38,22 +41,13 @@ const sendAuthorLikeReport = async () => {
     // Create the report content
     const reportContent = reportData.map(({ authorName, likeCount }) => `Author: ${authorName}, Likes: ${likeCount}`).join('\n');
 
-    // Send the email
-    const mailOptions = {
-      from: 'booking@gmail.com',
-      to: 'authour.com',
-      subject: 'Author Like Count Report',
-      text: reportContent,
-    };
-
-    await transporter.sendMail(mailOptions);
-    console.log('Report sent successfully');
+    // Log the report content
+    logger.info(`Author Like Count Report:\n${reportContent}`);
+    console.log('Report logged successfully');
   } catch (error) {
-    console.error('Error generating or sending report:', error);
+    logger.error('Error generating or logging report:', error);
+    console.error('Error generating or logging report:', error);
   }
 };
 
-// Schedule the task to run every 5 minutes
-cron.schedule('*/5 * * * *', sendAuthorLikeReport);
-
-module.exports = sendAuthorLikeReport;
+module.exports = logAuthorLikeReport;

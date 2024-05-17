@@ -1,12 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cron = require("node-cron");
 const dotenv = require("dotenv").config(); 
 const sequelize = require("./model/sequelize"); 
 const AuthorRoute = require("./routes/author.route"); 
 const UserRoute = require("./routes/user.route"); 
 const BookingRoute = require("./routes/booking.route"); 
 const likeHandleRoute = require("./routes/like.route"); 
-// const sendAuthorLikeReport = require('./cronJobs');
+// const logAuthorLikeReport = require("./cronJobs/cronJobs");
+// const logMessageDate = require("./cronJobs/cronJobTestDateLog")
+const logMessage = require("./cronJobs/cronJobTest")
+
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -24,8 +28,9 @@ app.use('/api/author', AuthorRoute);
 app.use('/api/user', UserRoute); 
 app.use('/api/booking', BookingRoute);
 
-// //Report Generation in every 5min
-// sendAuthorLikeReport();
+// cron.schedule('*/1 * * * *', logAuthorLikeReport);
+// cron.schedule('*/1 * * * *', logMessageDate);
+cron.schedule('*/1 * * * *', logMessage);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
