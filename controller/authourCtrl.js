@@ -1,4 +1,6 @@
 const Author = require('../model/author.model');
+const AuthorDTO = require("../dto/author.dto");
+
 
 const CreateAuthour = async (req, res) => {
     try {
@@ -49,4 +51,19 @@ const CreateAuthour = async (req, res) => {
       res.status(500).send({ status: "Error", message: error.message });
     }
   };
-  module.exports = {CreateAuthour,getAllAuthors,updateAuthor}
+
+  const getAnAuthor = async (req, res) => {
+    let authorId = req.params.id;
+    try {
+      const author = await Author.findOne({ where: { id: authorId } });
+      if (!author) {
+        return res.status(404).json({ message: "Author not found" });
+      }
+      const authorDTO = new AuthorDTO(author);
+      res.json(authorDTO);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ status: "Error" });
+    }
+  };
+  module.exports = {CreateAuthour,getAllAuthors,updateAuthor,getAnAuthor}
