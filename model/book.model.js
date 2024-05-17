@@ -32,6 +32,7 @@ const Book = sequelize.define('Book', {
 
 // Book.belongsTo(Author);
 
+
 // console.log('Book model:', Book);
 // console.log('Author model in Book:', Author);
 // console.log('Book associations:', Book.associations);

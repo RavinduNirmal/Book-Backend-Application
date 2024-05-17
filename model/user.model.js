@@ -17,6 +17,7 @@ const User = sequelize.define('User', {
   contactNo: {
     type: DataTypes.STRING,
     allowNull: false,
+    
   }, 
 });
 
