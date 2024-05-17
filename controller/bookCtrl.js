@@ -1,4 +1,5 @@
 const Book = require("../model/book.model");
+const BookDTO = require("../dto/book.dto");
 
 const CreateBooking = async (req, res) => {
   try {
@@ -23,14 +24,17 @@ const getAllBookings = async (req, res) => {
 
 const getABooking = async (req, res) => {
   let BookId = req.params.id;
-  console.log(BookId);
-  const book = await Book.findOne({where:{id:BookId}})
-    .then((book) => {
-      res.json(book);
-    })
-    .catch(() => {
+    try {
+      const book = await Book.findOne({where:{id:BookId}})
+      if (!book) {
+        return res.status(404).json({ message: "Book not found" });
+      }
+      const bookDTO = new BookDTO(book);
+      res.json(bookDTO);
+    } catch (error) {
+      console.error(error);
       res.status(500).send({ status: "Error" });
-    });
+    }
 };
 
 const getBookByISBN = async (req, res) => {
