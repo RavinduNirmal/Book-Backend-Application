@@ -1,6 +1,8 @@
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
-const { Book, BookLike, Author } = require('./models'); 
+const Book = require('../model/book.model'); 
+const Author = require('../model/author.model'); 
+const BookLike = require('../model//user_book.model'); 
 
 // Configure your email transporter
 const transporter = nodemailer.createTransport({

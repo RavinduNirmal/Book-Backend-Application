@@ -37,4 +37,28 @@ const getAUser = async (req, res) => {
   }
 };
 
-module.exports = { CreateUser, getAllUsers, getAUser };
+const updateUser = async (req, res) => {
+  let userId = req.params.id;
+  const { firstName, lastName, email, contactNo } = req.body; 
+
+  try {
+    const user = await User.findOne({ where: { id: userId } });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
+    user.email = email || user.email;
+    user.contactNo = contactNo || user.contactNo;   
+
+    await user.save();
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: "Error", message: error.message });
+  }
+};
+
+
+module.exports = { CreateUser, getAllUsers, getAUser , updateUser };
