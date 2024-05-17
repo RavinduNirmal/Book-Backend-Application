@@ -1,5 +1,5 @@
 const User = require("../model/user.model");
-const UserDTO = require("../services/user.dto");
+const UserDTO = require("../dto/user.dto");
 
 const CreateUser = async (req, res) => {
   try {
@@ -21,17 +21,6 @@ const getAllUsers = async (req, res) => {
     res.status(400).json(error);
   }
 };
-
-// const getAUser = async (req, res) => {
-//   let UserId = req.params.id;
-//   const user = await User.findOne({where:{id:UserId}})
-//     .then((user) => {
-//       res.json(user);
-//     })
-//     .catch(() => {
-//       res.status(500).send({ status: "Error" });
-//     });
-// };
 
 const getAUser = async (req, res) => {
   let userId = req.params.id;
