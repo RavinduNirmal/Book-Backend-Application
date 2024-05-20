@@ -31,6 +31,16 @@ const AuthorService = {
 
     return await AuthorRepository.updateAuthor(author);
   },
+
+  deleteAuthor: async (authorId) => {
+    const author = await AuthorRepository.findAuthorById(authorId);
+    if (!author) {
+      throw new Error('Author not found');
+    }
+
+    await AuthorRepository.deleteAuthor(author);
+    return { message: 'Author deleted successfully' };
+  },
 };
 
 module.exports = AuthorService;

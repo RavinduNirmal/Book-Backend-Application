@@ -16,6 +16,9 @@ const AuthorRepository = {
   updateAuthor: async (author) => {
     return await author.save();
   },
+  deleteAuthor: async (author) => {
+    return await author.destroy();
+  },
 };
 
 module.exports = AuthorRepository;
