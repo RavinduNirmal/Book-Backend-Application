@@ -5,7 +5,7 @@ const AuthorService = {
     const { email } = authorData;
     
     // Check if the email already exists
-    const existingAuthor = await AuthorRepository.findUserByEmail(email);
+    const existingAuthor = await AuthorRepository.findAuthorByEmail(email);
     if (existingAuthor) {
       throw new Error('Author with this email already exists');
     }

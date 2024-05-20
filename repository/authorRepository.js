@@ -1,7 +1,7 @@
 const Author = require("../model/author.model");
 
 const AuthorRepository = {
-  findUserByEmail: async (email) => {
+  findAuthorByEmail: async (email) => {
     return await Author.findOne({ where: { email } });
   },
   CreateAuthor: async (authorData) => {
