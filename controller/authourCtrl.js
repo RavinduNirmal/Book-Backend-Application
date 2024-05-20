@@ -1,24 +1,37 @@
 const Author = require("../model/author.model");
 const AuthorDTO = require("../dto/author.dto");
+const AuthorService = require('../services/authorService');
+
+
+// const CreateAuthour = async (req, res) => {
+//   try {
+//     const { firstName, lastName, email, contactNo } = req.body;
+
+//     // Check if the email already exists
+//     const existingAuthor = await Author.findOne({ where: { email } });
+//     if (existingAuthor) {
+//       return res
+//         .status(400)
+//         .json({ error: "Author with this email already exists" });
+//     }
+//     const authour = await Author.create({
+//       firstName,
+//       lastName,
+//       email,
+//       contactNo,
+//     });
+//     res.status(201).json(authour);
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 
 const CreateAuthour = async (req, res) => {
   try {
     const { firstName, lastName, email, contactNo } = req.body;
 
-    // Check if the email already exists
-    const existingAuthor = await Author.findOne({ where: { email } });
-    if (existingAuthor) {
-      return res
-        .status(400)
-        .json({ error: "Author with this email already exists" });
-    }
-    const authour = await Author.create({
-      firstName,
-      lastName,
-      email,
-      contactNo,
-    });
-    res.status(201).json(authour);
+    const author = await AuthorService.CreateAuthor({ firstName, lastName, email, contactNo });
+    res.status(201).json(author);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
