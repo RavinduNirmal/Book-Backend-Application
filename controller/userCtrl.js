@@ -13,17 +13,6 @@ const CreateUser = async (req, res) => {
   }
 };
 
-// const getAllUsers = async (req, res) => {
-//   try {
-//     const allUsers = await User.findAll();
-//     console.log("All Users fetched successfully:", allUsers);
-//     res.json(allUsers);
-//   } catch (error) {
-//     console.error("Error fetching all users:", error);
-//     res.status(400).json(error);
-//   }
-// };
-
 const getAllUsers = async (req, res) => {
   try {
     const allUsers = await UserService.getAllUsers();
