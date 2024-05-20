@@ -41,17 +41,19 @@ const updateAuthor = async (req, res) => {
 };
 
 const getAnAuthor = async (req, res) => {
-  let authorId = req.params.id;
+  const authorId = req.params.id;
+
   try {
-    const author = await Author.findOne({ where: { id: authorId } });
-    if (!author) {
-      return res.status(404).json({ message: "Author not found" });
-    }
+    const author = await AuthorService.getAuthorById(authorId);
     const authorDTO = new AuthorDTO(author);
     res.json(authorDTO);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ status: "Error" });
+    if (error.message === 'Author not found') {
+      res.status(404).json({ message: error.message });
+    } else {
+      console.error(error);
+      res.status(500).json({ status: 'Error', message: error.message });
+    }
   }
 };
 

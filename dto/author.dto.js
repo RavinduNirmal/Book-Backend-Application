@@ -1,11 +1,10 @@
 class AuthorDTO {
-    constructor({ id, email, firstName, lastName}) {
-      this.id = id;
-      this.email = email;
-      this.firstName = firstName; 
-      this.lastName = lastName;
-    }
+  constructor(author) {
+    this.id = author.id;
+    this.email = author.email;
+    this.firstName = author.firstName;
+    this.lastName = author.lastName;
   }
-  
+}
   module.exports = AuthorDTO;
   
