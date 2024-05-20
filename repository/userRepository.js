@@ -7,6 +7,9 @@ const UserRepository = {
   createUser: async (userData) => {
     return await User.create(userData);
   },
+  findAllUsers: async () => {
+    return await User.findAll();
+  },
 };
 
 module.exports = UserRepository;

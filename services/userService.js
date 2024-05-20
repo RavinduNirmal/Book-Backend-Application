@@ -13,6 +13,10 @@ const UserService = {
     // Create the user
     return await UserRepository.createUser(userData);
   },
+
+  getAllUsers: async () => {
+    return await UserRepository.findAllUsers();
+  },
 };
 
 module.exports = UserService;
