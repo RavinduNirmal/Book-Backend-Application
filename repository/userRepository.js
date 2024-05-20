@@ -10,6 +10,12 @@ const UserRepository = {
   findAllUsers: async () => {
     return await User.findAll();
   },
+  findUserById: async (userId) => {
+    return await User.findOne({ where: { id: userId } });
+  },
+  updateUser: async (user) => {
+    return await user.save();
+  },
 };
 
 module.exports = UserRepository;

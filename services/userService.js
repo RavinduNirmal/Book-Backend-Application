@@ -17,6 +17,19 @@ const UserService = {
   getAllUsers: async () => {
     return await UserRepository.findAllUsers();
   },
+  updateUser: async (userId, userData) => {
+    const user = await UserRepository.findUserById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    user.firstName = userData.firstName || user.firstName;
+    user.lastName = userData.lastName || user.lastName;
+    user.email = userData.email || user.email;
+    user.contactNo = userData.contactNo || user.contactNo;
+
+    return await UserRepository.updateUser(user);
+  },
 };
 
 module.exports = UserService;

@@ -51,27 +51,21 @@ const getAUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  let userId = req.params.id;
-  const { firstName, lastName, email, contactNo } = req.body; 
+  const userId = req.params.id;
+  const { firstName, lastName, email, contactNo } = req.body;
 
   try {
-    const user = await User.findOne({ where: { id: userId } });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    user.firstName = firstName || user.firstName;
-    user.lastName = lastName || user.lastName;
-    user.email = email || user.email;
-    user.contactNo = contactNo || user.contactNo;   
-
-    await user.save();
-    res.json(user);
+    const updatedUser = await UserService.updateUser(userId, { firstName, lastName, email, contactNo });
+    res.json(updatedUser);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ status: "Error", message: error.message });
+    if (error.message === 'User not found') {
+      res.status(404).json({ message: error.message });
+    } else {
+      console.error(error);
+      res.status(500).json({ status: 'Error', message: error.message });
+    }
   }
-};
+}
 
 const deleteUser = async (req, res) => {
   let userId = req.params.id;
