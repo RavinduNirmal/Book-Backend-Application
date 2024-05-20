@@ -12,15 +12,14 @@ const CreateAuthour = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
 const getAllAuthors = async (req, res) => {
   try {
-    const allAuthor = await Author.findAll();
-    console.log("All Authors fetched successfully:", allAuthor);
-    res.json(allAuthor);
+    const allAuthors = await AuthorService.getAllAuthors();
+    console.log("All Authors fetched successfully:", allAuthors);
+    res.json(allAuthors);
   } catch (error) {
-    console.error("Error fetching all users:", error);
-    res.status(400).json(error);
+    console.error("Error fetching all authors:", error);
+    res.status(400).json({ error: error.message });
   }
 };
 

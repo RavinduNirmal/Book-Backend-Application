@@ -13,6 +13,10 @@ const AuthorService = {
     // Create the Author
     return await AuthorRepository.CreateAuthor(authorData);
   },
+
+  getAllAuthors: async () => {
+    return await AuthorRepository.findAllAuthors();
+  },
 };
 
 module.exports = AuthorService;

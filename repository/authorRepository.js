@@ -7,6 +7,9 @@ const AuthorRepository = {
   CreateAuthor: async (authorData) => {
     return await Author.create(authorData);
   },
+  findAllAuthors: async () => {
+    return await Author.findAll();
+  },
 };
 
 module.exports = AuthorRepository;
