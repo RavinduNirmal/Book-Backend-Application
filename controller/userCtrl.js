@@ -57,21 +57,18 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-  let userId = req.params.id;
+  const userId = req.params.id;
 
   try {
-    const user = await User.findByPk(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Delete the user
-    await user.destroy();
-
-    res.status(200).json({ message: "User deleted successfully" });
+    const result = await UserService.deleteUser(userId);
+    res.status(200).json(result);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ status: "Error", message: error.message });
+    if (error.message === 'User not found') {
+      res.status(404).json({ message: error.message });
+    } else {
+      console.error(error);
+      res.status(500).json({ status: 'Error', message: error.message });
+    }
   }
 };
 

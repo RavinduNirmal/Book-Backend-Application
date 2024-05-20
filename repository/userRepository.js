@@ -16,6 +16,9 @@ const UserRepository = {
   updateUser: async (user) => {
     return await user.save();
   },
+  deleteUser: async (user) => {
+    return await user.destroy();
+  },
 };
 
 module.exports = UserRepository;

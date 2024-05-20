@@ -13,7 +13,6 @@ const UserService = {
     // Create the user
     return await UserRepository.createUser(userData);
   },
-
   getAllUsers: async () => {
     return await UserRepository.findAllUsers();
   },
@@ -29,6 +28,15 @@ const UserService = {
     user.contactNo = userData.contactNo || user.contactNo;
 
     return await UserRepository.updateUser(user);
+  },
+  deleteUser: async (userId) => {
+    const user = await UserRepository.findUserById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    await UserRepository.deleteUser(user);
+    return { message: 'User deleted successfully' };
   },
 };
 

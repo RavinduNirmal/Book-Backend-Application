@@ -55,24 +55,6 @@ const getAnAuthor = async (req, res) => {
   }
 };
 
-// const deleteAuthor = async (req, res) => {
-//   let authorId = req.params.id;
-
-//   try {
-//     const author = await Author.findByPk(authorId);
-//     if (!author) {
-//       return res.status(404).json({ message: "Author not found" });
-//     }
-
-//     // Delete the user
-//     await author.destroy();
-
-//     res.status(200).json({ message: "Author deleted successfully" });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send({ status: "Error", message: error.message });
-//   }
-// };
 const deleteAuthor = async (req, res) => {
   const authorId = req.params.id;
 
@@ -88,7 +70,6 @@ const deleteAuthor = async (req, res) => {
     }
   }
 };
-
 
 module.exports = {
   CreateAuthour,
