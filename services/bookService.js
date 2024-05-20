@@ -22,6 +22,13 @@ const BookService = {
     }
     return book;
   },
+  getBookByISBN: async (ISBNno) => {
+    const book = await BookRepository.findBookByISBNno(ISBNno);
+    if (!book) {
+      throw new Error("Book not found");
+    }
+    return book;
+  },
 };
 
 module.exports = BookService;

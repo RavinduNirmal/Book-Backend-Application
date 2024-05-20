@@ -45,14 +45,7 @@ const getBookByISBN = async (req, res) => {
     const { ISBNno } = req.params.ISBNno;
 
     // Find the book by ISBN
-    const book = await Book.findOne({where:{ISBNno:ISBNno}});
-    console.log(book);
-
-    if (!book) {
-      return res.status(404).json({ msg: "Book not found", success: false });
-    }
-
-    console.log("Book fetched successfully:", book);
+    const book = await BookService.getBookByISBN(ISBNno);
     res.json({ success: true, book });
   } catch (error) {
     console.error("Error fetching book by ISBN:", error);
