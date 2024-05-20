@@ -17,6 +17,20 @@ const AuthorService = {
   getAllAuthors: async () => {
     return await AuthorRepository.findAllAuthors();
   },
+
+  updateAuthor: async (authorId, authorData) => {
+    const author = await AuthorRepository.findAuthorById(authorId);
+    if (!author) {
+      throw new Error('Author not found');
+    }
+
+    author.firstName = authorData.firstName || author.firstName;
+    author.lastName = authorData.lastName || author.lastName;
+    author.email = authorData.email || author.email;
+    author.contactNo = authorData.contactNo || author.contactNo;
+
+    return await AuthorRepository.updateAuthor(author);
+  },
 };
 
 module.exports = AuthorService;

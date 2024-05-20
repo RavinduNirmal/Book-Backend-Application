@@ -24,25 +24,19 @@ const getAllAuthors = async (req, res) => {
 };
 
 const updateAuthor = async (req, res) => {
-  let authorId = req.params.id;
+  const authorId = req.params.id;
   const { firstName, lastName, email, contactNo } = req.body;
 
   try {
-    const author = await Author.findOne({ where: { id: authorId } });
-    if (!author) {
-      return res.status(404).json({ message: "Author not found" });
-    }
-
-    author.firstName = firstName || author.firstName;
-    author.lastName = lastName || author.lastName;
-    author.email = email || author.email;
-    author.contactNo = contactNo || author.contactNo;
-
-    await author.save();
-    res.json(author);
+    const updatedAuthor = await AuthorService.updateAuthor(authorId, { firstName, lastName, email, contactNo });
+    res.json(updatedAuthor);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ status: "Error", message: error.message });
+    if (error.message === 'Author not found') {
+      res.status(404).json({ message: error.message });
+    } else {
+      console.error(error);
+      res.status(500).json({ status: 'Error', message: error.message });
+    }
   }
 };
 
