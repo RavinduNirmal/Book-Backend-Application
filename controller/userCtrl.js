@@ -1,16 +1,29 @@
 const User = require("../model/user.model");
 const UserDTO = require("../dto/user.dto");
+const UserService = require('../services/userService');
+
+
+// const CreateUser = async (req, res) => {
+//   try {
+//     const { firstName, lastName, email, contactNo } = req.body;
+
+//     // Check if the email already exists
+//     const existingUser = await User.findOne({ where: { email } });
+//     if (existingUser) {
+//       return res.status(400).json({ error: 'User with this email already exists' });
+//     }
+//     const user = await User.create({ firstName, lastName, email, contactNo });
+//     res.status(201).json(user);
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 
 const CreateUser = async (req, res) => {
   try {
     const { firstName, lastName, email, contactNo } = req.body;
 
-    // Check if the email already exists
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      return res.status(400).json({ error: 'User with this email already exists' });
-    }
-    const user = await User.create({ firstName, lastName, email, contactNo });
+    const user = await UserService.createUser({ firstName, lastName, email, contactNo });
     res.status(201).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
