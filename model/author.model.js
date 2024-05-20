@@ -22,6 +22,12 @@ const Author = sequelize.define('Author', {
   contactNo: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      is: {
+        args: /^[0-9]{10}$/, 
+        msg: 'Contact number must be 10 digits and contain only numbers',
+      },
+    },
   },
 });
 
