@@ -1,4 +1,3 @@
-const Author = require("../model/author.model");
 const AuthorDTO = require("../dto/author.dto");
 const AuthorService = require('../services/authorService');
 

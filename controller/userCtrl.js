@@ -1,4 +1,3 @@
-const User = require("../model/user.model");
 const UserDTO = require("../dto/user.dto");
 const UserService = require('../services/userService');
 
@@ -25,17 +24,19 @@ const getAllUsers = async (req, res) => {
 };
 
 const getAUser = async (req, res) => {
-  let userId = req.params.id;
+  const userId = req.params.id;
+
   try {
-    const user = await User.findOne({ where: { id: userId } });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    const user = await UserService.getUserById(userId);
     const userDTO = new UserDTO(user);
     res.json(userDTO);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ status: "Error" });
+    if (error.message === 'User not found') {
+      res.status(404).json({ message: error.message });
+    } else {
+      console.error(error);
+      res.status(500).json({ status: 'Error', message: error.message });
+    }
   }
 };
 
