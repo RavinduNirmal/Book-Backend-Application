@@ -30,11 +30,12 @@ const Book = sequelize.define('Book', {
   },
 });
 
+Book.associate = (models) => {
+  Book.belongsTo(models.Author, { foreignKey: 'Author', as: 'author' });
+};
+
+
 // Book.belongsTo(Author);
 
-
-// console.log('Book model:', Book);
-// console.log('Author model in Book:', Author);
-// console.log('Book associations:', Book.associations);
 
 module.exports = Book;

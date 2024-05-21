@@ -8,7 +8,7 @@ const AuthorRepository = {
     return await Author.create(authorData);
   },
   findAllAuthors: async () => {
-    return await Author.findAll();
+    return await Author.findAll({ attributes: { exclude: ['updatedAt','createdAt'] }});
   },
   findAuthorById: async (authorId) => {
     return await Author.findOne({ where: { id: authorId } });

@@ -31,6 +31,10 @@ const Author = sequelize.define('Author', {
   },
 });
 
+Author.associate = (models) => {
+  Author.hasMany(models.Book, { foreignKey: 'Author', as: 'books' });
+};
+
 // Author.hasMany(Book);
 // console.log('Author model:', Author);
 
