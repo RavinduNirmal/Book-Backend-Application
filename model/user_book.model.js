@@ -23,6 +23,5 @@ const BookLike = sequelize.define(
     ],
   }
 );
-// BookLike.belongsTo(Book);
 
 module.exports = BookLike;

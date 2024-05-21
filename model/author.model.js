@@ -29,23 +29,10 @@ const Author = sequelize.define('Author', {
       },
     },
   },
-  // likeCount:{
-  //   type: DataTypes.STRING,
-  //   allowNull: false,
-  //   validate: {
-  //     isAlphanumeric: true,
-  //   },
-  // }
 });
 
-// Author.associate = (models) => {
-//   Author.hasMany(models.Book, { foreignKey: 'Author', as: 'books' });
-// };
 Author.hasMany(Book);
 Book.belongsTo(Author);
-
-// Author.hasMany(Book);
-// console.log('Author model:', Author);
 
 module.exports = Author;
 

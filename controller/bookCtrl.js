@@ -1,4 +1,3 @@
-const Book = require("../model/book.model");
 const BookDTO = require("../dto/book.dto");
 const BookService = require("../services/bookService");
 const AuthorService = require("../services/authorService");

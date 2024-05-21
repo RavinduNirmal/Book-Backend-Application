@@ -33,14 +33,5 @@ const Book = sequelize.define("Book", {
 
 Book.hasMany(BookLike);
 BookLike.belongsTo(Book);
-// Book.belongsTo(Author);
-
-// Book.associate = (models) => {
-//   Book.belongsTo(models.Author, { foreignKey: 'Author', as: 'author' });
-// };
-
-// console.log('Book model:', Book);
-// console.log('Author model in Book:', Author);
-// console.log('Book associations:', Book.associations);
 
 module.exports = Book;

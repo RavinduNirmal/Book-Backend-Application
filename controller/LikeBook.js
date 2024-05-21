@@ -1,7 +1,3 @@
-const sequelize = require("../model/sequelize");
-const Book = require("../model/book.model");
-const Author = require("../model/author.model");
-const BookLike = require("../model/user_book.model");
 const BookLikeService = require("../services/likeBookService");
 
 const likeToABook = async (req, res) => {
