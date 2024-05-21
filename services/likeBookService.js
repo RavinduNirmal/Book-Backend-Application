@@ -26,6 +26,12 @@ const BookLikeService = {
 
     return { success: true, likeCount };
   },
-};
+  countLikesByAllBooks: async () => {
+    const likeCount = await BookLikeRepository.countLikesByAllBooks();
+    console.log(likeCount)
+
+    return likeCount;
+  }
+}  
 
 module.exports = BookLikeService;

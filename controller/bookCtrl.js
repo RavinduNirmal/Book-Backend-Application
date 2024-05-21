@@ -1,12 +1,15 @@
 const Book = require("../model/book.model");
 const BookDTO = require("../dto/book.dto");
 const BookService = require("../services/bookService");
+const AuthorService = require("../services/authorService");
 
 const CreateBooking = async (req, res) => {
   try {
-    const { ISBNno, Category, Title, Authour } = req.body;
+    const { ISBNno, Category, Title, AuthorId } = req.body;
+    console.log(AuthorId)
 
-    const book = await BookService.createBook({ ISBNno, Category, Title, Authour });
+    const author = await AuthorService.getAuthorById(AuthorId);
+    const book = await BookService.createBook({ ISBNno, Category, Title, AuthorId });
     res.status(201).json(book);
   } catch (error) {
     res.status(400).json({ error: error.message });

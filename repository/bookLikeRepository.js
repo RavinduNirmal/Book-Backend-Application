@@ -1,3 +1,5 @@
+const Author = require("../model/author.model");
+const Book = require("../model/book.model");
 const BookLike = require("../model/user_book.model");
 
 const BookLikeRepository = {
@@ -9,6 +11,14 @@ const BookLikeRepository = {
   },
   countLikesByBookId: async (bookId) => {
     return await BookLike.count({ where: { bookId } });
+  },
+  countLikesByAllBooks: async () => {
+    return await BookLike.count({
+      group: ["Book.AuthorId"],
+      include: {
+        model: Book,
+      },
+    });
   },
 };
 

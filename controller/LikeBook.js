@@ -1,3 +1,7 @@
+const sequelize = require("../model/sequelize");
+const Book = require("../model/book.model");
+const Author = require("../model/author.model");
+const BookLike = require("../model/user_book.model");
 const BookLikeService = require("../services/likeBookService");
 
 const likeToABook = async (req, res) => {
@@ -15,4 +19,14 @@ const likeToABook = async (req, res) => {
   }
 };
 
-module.exports = { likeToABook };
+const getLikeCountByAuthor = async (req, res) => {  
+  try {
+    const result = await BookLikeService.countLikesByAllBooks();
+    res.status(201).json(result);
+  } catch (error) {
+    console.error("Error fetching all books Counts:", error);
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = { likeToABook,getLikeCountByAuthor };
