@@ -6,7 +6,9 @@ const CreateUser = async (req, res) => {
     const { firstName, lastName, email, contactNo } = req.body;
 
     const user = await UserService.createUser({ firstName, lastName, email, contactNo });
-    res.status(201).json(user);
+    // res.status(201).json(user);
+    const userDTO = new UserDTO(user);
+    res.json(userDTO);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
