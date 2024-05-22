@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("./sequelize");
-const Author = require("../model/author.model.js");
 const BookLike = require("../model/user_book.model");
 
 const Book = sequelize.define("Book", {
@@ -22,13 +21,6 @@ const Book = sequelize.define("Book", {
       isAlphanumeric: true,
     },
   },
-  // AuthourId: {
-  //   type: DataTypes.NUMBER,
-  //   allowNull: false,
-  //   validate: {
-  //       notNull: { msg: "Authour is required" },
-  //     },
-  // },
 });
 
 Book.hasMany(BookLike);

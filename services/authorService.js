@@ -1,15 +1,19 @@
-const AuthorRepository = require('../repository/authorRepository');
+const AuthorRepository = require("../repository/authorRepository");
+const bcrypt = require("bcrypt");
 
 const AuthorService = {
-    CreateAuthor: async (authorData) => {
-    const { email } = authorData;
-    
+  CreateAuthor: async (authorData) => {
+    const { email, password } = authorData;
+
     // Check if the email already exists
     const existingAuthor = await AuthorRepository.findAuthorByEmail(email);
     if (existingAuthor) {
-      throw new Error('Author with this email already exists');
+      throw new Error("Author with this email already exists");
     }
-    
+    //Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    authorData.password = hashedPassword;
+
     // Create the Author
     return await AuthorRepository.CreateAuthor(authorData);
   },
@@ -21,7 +25,7 @@ const AuthorService = {
   updateAuthor: async (authorId, authorData) => {
     const author = await AuthorRepository.findAuthorById(authorId);
     if (!author) {
-      throw new Error('Author not found');
+      throw new Error("Author not found");
     }
 
     author.firstName = authorData.firstName || author.firstName;
@@ -35,17 +39,17 @@ const AuthorService = {
   deleteAuthor: async (authorId) => {
     const author = await AuthorRepository.findAuthorById(authorId);
     if (!author) {
-      throw new Error('Author not found');
+      throw new Error("Author not found");
     }
 
     await AuthorRepository.deleteAuthor(author);
-    return { message: 'Author deleted successfully' };
+    return { message: "Author deleted successfully" };
   },
 
   getAuthorById: async (authorId) => {
     const author = await AuthorRepository.findAuthorById(authorId);
     if (!author) {
-      throw new Error('Author not found');
+      throw new Error("Author not found");
     }
     return author;
   },

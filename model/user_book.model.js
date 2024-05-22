@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("./sequelize");
-const Book = require("../model/book.model");
 
 const BookLike = sequelize.define(
   "BookLike",
@@ -9,19 +8,19 @@ const BookLike = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // bookId: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    // },
+    bookId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
-  // {
-  //   indexes: [
-  //     {
-  //       unique: true,
-  //       fields: ["userId", "bookId"],
-  //     },
-  //   ],
-  // }
+  {
+    indexes: [
+      {
+        unique: true,
+        fields: ["userId", "bookId"],
+      },
+    ],
+  }
 );
 
 module.exports = BookLike;

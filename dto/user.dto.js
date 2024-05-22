@@ -1,9 +1,8 @@
 class UserDTO {
-    constructor({ id, email, contactNo ,password}) {
+    constructor({ id, email, contactNo }) {
       this.id = id;
       this.email = email;
       this.contactNo = contactNo;
-      this.password = password;
     }
   }
   
