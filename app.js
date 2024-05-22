@@ -6,7 +6,8 @@ const AuthorRoute = require("./routes/author.route");
 const UserRoute = require("./routes/user.route"); 
 const BookingRoute = require("./routes/booking.route"); 
 const likeHandleRoute = require("./routes/like.route"); 
-const logAuthorLikeReport = require("./cronJobs/cronJobs");
+const authRoute = require("./routes/auth.route"); 
+// const logAuthorLikeReport = require("./cronJobs/cronJobs");
 const dbConnect = require('./config/dbConnect');
 
 //Initilizing Express App
@@ -26,9 +27,10 @@ app.use('/api/like',likeHandleRoute);
 app.use('/api/author', AuthorRoute); 
 app.use('/api/user', UserRoute); 
 app.use('/api/booking', BookingRoute);
+app.use('/api/user', authRoute);
 
 //Liked Books for Author Report Generation Shedule
-cron.schedule('*/1 * * * *', logAuthorLikeReport);
+// cron.schedule('*/1 * * * *', logAuthorLikeReport);
 
 //Starting The Server
 app.listen(PORT, () => {

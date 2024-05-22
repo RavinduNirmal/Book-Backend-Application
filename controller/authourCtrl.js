@@ -3,9 +3,9 @@ const AuthorService = require('../services/authorService');
 
 const CreateAuthour = async (req, res) => {
   try {
-    const { firstName, lastName, email, contactNo } = req.body;
+    const { firstName, lastName, email, contactNo,password } = req.body;
 
-    const author = await AuthorService.CreateAuthor({ firstName, lastName, email, contactNo });
+    const author = await AuthorService.CreateAuthor({ firstName, lastName, email, contactNo, password });
     res.status(201).json(author);
   } catch (error) {
     res.status(400).json({ error: error.message });
