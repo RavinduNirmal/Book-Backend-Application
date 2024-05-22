@@ -18,6 +18,21 @@ const User = sequelize.define('User', {
       isEmail: true, 
     },
   },
+  password:{
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      len: {
+        args: [8, 128], // Minimum length 8 characters with maximum length 128 characters
+        msg: 'Password must be between 8 and 128 characters long',
+      },
+      isComplexEnough(value) {
+        if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(value)) {
+          throw new Error('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+        }
+      },
+    },
+  },
   contactNo: {
     type: DataTypes.STRING,
     allowNull: false,

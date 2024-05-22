@@ -3,9 +3,9 @@ const UserService = require('../services/userService');
 
 const CreateUser = async (req, res) => {
   try {
-    const { firstName, lastName, email, contactNo } = req.body;
+    const { firstName, lastName, email, contactNo, password } = req.body;
 
-    const user = await UserService.createUser({ firstName, lastName, email, contactNo });
+    const user = await UserService.createUser({ firstName, lastName, email, contactNo, password });
     // res.status(201).json(user);
     const userDTO = new UserDTO(user);
     res.json(userDTO);
