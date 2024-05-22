@@ -44,6 +44,9 @@ const Author = sequelize.define('Author', {
       },
     },
   },
+  lastLoggedIn: {
+    type: DataTypes.DATE,
+  },
 });
 
 Author.hasMany(Book);

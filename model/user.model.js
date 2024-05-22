@@ -42,6 +42,11 @@ const User = sequelize.define('User', {
         msg: 'Contact number must be 10 digits and contain only numbers',
       },
     },
+  },
+  lastLoggedIn: {
+    type: DataTypes.DATE,
+    allowNull: true,
+
   }, 
 } 
 );

@@ -1,5 +1,7 @@
 const UserRepository = require("../repository/userRepository");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv").config();
 
 const UserService = {
   createUser: async (userData) => {
