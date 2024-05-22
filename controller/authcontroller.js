@@ -33,7 +33,7 @@ const Login = async (req, res) => {
     user.lastLoggedIn = new Date();
     await user.save();
 
-    res.send({ token, user });
+    res.send({ token,userType, user });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
