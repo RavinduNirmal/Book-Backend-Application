@@ -7,6 +7,7 @@ const UserRoute = require("./routes/user.route");
 const BookingRoute = require("./routes/booking.route"); 
 const likeHandleRoute = require("./routes/like.route"); 
 const authRoute = require("./routes/auth.route"); 
+const productRoute = require("./routes/product.route");
 // const logAuthorLikeReport = require("./cronJobs/cronJobs");
 const dbConnect = require('./config/dbConnect');
 
@@ -28,6 +29,7 @@ app.use('/api/author', AuthorRoute);
 app.use('/api/user', UserRoute); 
 app.use('/api/booking', BookingRoute);
 app.use('/api/user', authRoute);
+app.use("/api/product",productRoute)
 
 //Liked Books for Author Report Generation Shedule
 // cron.schedule('*/1 * * * *', logAuthorLikeReport);
